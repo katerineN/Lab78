@@ -1,7 +1,10 @@
-﻿namespace Lab78.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Lab78.Models;
 
 public class Superhero
 {
+    [Key]
     public int? Id { get; set; }
     public string? superhero_name { get; set; }
     public string? full_name { get; set; }

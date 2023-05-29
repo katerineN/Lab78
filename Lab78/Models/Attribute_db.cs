@@ -2,9 +2,9 @@
 
 namespace Lab78.Models;
 
-public class Allignment
+public class Attribute_db
 {
     [Key]
     public int? Id { get; set; }
-    public string? allignment { get; set; }
+    public string? attribute_name { get; set; }
 }
