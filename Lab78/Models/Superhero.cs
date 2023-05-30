@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Lab78.Models;
 
@@ -17,4 +18,8 @@ public class Superhero
     public int? alignment_id { get; set; }
     public int? height_cm { get; set; }
     public int? weight_kg { get; set; }
+    [NotMapped]
+    public ICollection<Hero_attribute> attributes { get; } = new List<Hero_attribute>();
+    [NotMapped]
+    public ICollection<Hero_power> powers { get; } = new List<Hero_power>();
 }

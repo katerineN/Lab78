@@ -17,7 +17,7 @@ public class DBContext : DbContext
     public DbSet<Race> Races { get; set; }
     public DbSet<Publisher> Publishers { get; set; }
     public DbSet<Hero_attribute> HeroAttributes { get; set; }
-    public DbSet<Hero_power> Heropowers { get; set; }
+    public DbSet<Hero_power> HeroPowers { get; set; }
     public DbSet<Allignment> Allignments { get; set; }
     public DbSet<Attribute_db> Attributes { get; set; }
     public DbSet<Superpower> Superpowers { get; set; }
@@ -36,12 +36,21 @@ public class DBContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Superhero>().ToTable("superhero");
+            // .HasMany(e => e.attributes)
+            // .WithOne(e => e.Superhero)
+            // .HasForeignKey(e => e.hero_id);
         modelBuilder.Entity<Gender>().ToTable("gender");
         modelBuilder.Entity<Colour>().ToTable("colour");
         modelBuilder.Entity<Race>().ToTable("race");
         modelBuilder.Entity<Publisher>().ToTable("publisher");
         modelBuilder.Entity<Hero_attribute>().HasNoKey().ToTable("hero_attribute");
-        modelBuilder.Entity<Hero_power>().HasNoKey().ToTable("hero_power");
+            // .HasOne(e => e.Superhero)
+            // .WithMany(e => e.attributes)
+            // .HasForeignKey(e => e.hero_id);
+            modelBuilder.Entity<Hero_power>().HasNoKey().ToTable("hero_power");
+            // .HasOne(e => e.Superhero)
+            // .WithMany(e => e.powers)
+            // .HasForeignKey(e => e.hero_id);
         modelBuilder.Entity<Allignment>().ToTable("allignment");
         modelBuilder.Entity<Attribute_db>().ToTable("attribute");
         modelBuilder.Entity<Superpower>().ToTable("superpower");

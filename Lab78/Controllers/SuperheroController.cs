@@ -105,56 +105,6 @@ namespace Lab78.Controllers
             return NoContent();
         }
 
-        // GET: api/Superhero/5
-        // [HttpGet("{id}")]
-        // public async Task<ActionResult<Superhero>> GetSuperhero(int? id)
-        // {
-        //     if (_context.Superheroes == null)
-        //     {
-        //         return NotFound();
-        //     }
-        //
-        //     var superhero = await _context.Superheroes.FindAsync(id);
-        //
-        //     if (superhero == null)
-        //     {
-        //         return NotFound();
-        //     }
-        //
-        //     return superhero;
-        // }
-
-        // PUT: api/Superhero/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        // [HttpPut("{id}")]
-        // public async Task<IActionResult> PutSuperhero(int? id, Superhero superhero)
-        // {
-        //     if (id != superhero.Id)
-        //     {
-        //         return BadRequest();
-        //     }
-        //
-        //     _context.Entry(superhero).State = EntityState.Modified;
-        //
-        //     try
-        //     {
-        //         await _context.SaveChangesAsync();
-        //     }
-        //     catch (DbUpdateConcurrencyException)
-        //     {
-        //         if (!SuperheroExists(id))
-        //         {
-        //             return NotFound();
-        //         }
-        //         else
-        //         {
-        //             throw;
-        //         }
-        //     }
-        //
-        //     return NoContent();
-        // }
-
         // DELETE: api/Superhero/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSuperhero(int? id)
@@ -171,6 +121,8 @@ namespace Lab78.Controllers
             }
 
             _context.Superheroes.Remove(superhero);
+            var attr = await _context.HeroAttributes.FindAsync(id);
+            Console.WriteLine(attr);
             await _context.SaveChangesAsync();
 
             return NoContent();
