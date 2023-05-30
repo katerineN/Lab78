@@ -6,7 +6,10 @@ namespace Lab78.Data;
 
 public class DBContext : DbContext
 {
-    public DBContext(DbContextOptions<DBContext> options) : base(options) { }
+    public DBContext(DbContextOptions<DBContext> options) : base(options)
+    {
+        Database.EnsureCreated();
+    }
 
     public DbSet<Superhero> Superheroes { get; set; }
     public DbSet<Gender> Genders { get; set; }
@@ -18,6 +21,17 @@ public class DBContext : DbContext
     public DbSet<Allignment> Allignments { get; set; }
     public DbSet<Attribute_db> Attributes { get; set; }
     public DbSet<Superpower> Superpowers { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseSqlite("Filename=Superheroes.db");
+        base.OnConfiguring(optionsBuilder);
+        // if (optionsBuilder.IsConfigured)
+        // {
+        //     optionsBuilder.UseSqlServer("Filename=Superheroes.db", builder => builder.EnableRetryOnFailure());
+        // }
+    }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -31,6 +45,5 @@ public class DBContext : DbContext
         modelBuilder.Entity<Allignment>().ToTable("allignment");
         modelBuilder.Entity<Attribute_db>().ToTable("attribute");
         modelBuilder.Entity<Superpower>().ToTable("superpower");
-        
     }
 }
