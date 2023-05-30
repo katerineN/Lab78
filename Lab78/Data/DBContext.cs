@@ -1,6 +1,5 @@
 ﻿using Lab78.Models;
 using Microsoft.EntityFrameworkCore;
-using Attribute = System.Attribute;
 
 namespace Lab78.Data;
 
@@ -35,7 +34,10 @@ public class DBContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Superhero>().ToTable("superhero");
+        modelBuilder.Entity<Superhero>().ToTable("superhero")
+            .HasMany(e=>e.attributes)
+            .WithOne(e => e.Superhero)
+            .OnDelete(DeleteBehavior.Cascade);
             // .HasMany(e => e.attributes)
             // .WithOne(e => e.Superhero)
             // .HasForeignKey(e => e.hero_id);
@@ -43,14 +45,14 @@ public class DBContext : DbContext
         modelBuilder.Entity<Colour>().ToTable("colour");
         modelBuilder.Entity<Race>().ToTable("race");
         modelBuilder.Entity<Publisher>().ToTable("publisher");
-        modelBuilder.Entity<Hero_attribute>().HasNoKey().ToTable("hero_attribute");
-            // .HasOne(e => e.Superhero)
-            // .WithMany(e => e.attributes)
-            // .HasForeignKey(e => e.hero_id);
-            modelBuilder.Entity<Hero_power>().HasNoKey().ToTable("hero_power");
-            // .HasOne(e => e.Superhero)
-            // .WithMany(e => e.powers)
-            // .HasForeignKey(e => e.hero_id);
+        modelBuilder.Entity<Hero_attribute>().ToTable("hero_attribute")
+            .HasOne(e => e.Superhero)
+            .WithMany(e => e.attributes)
+            .HasForeignKey(e => e.hero_id);
+            modelBuilder.Entity<Hero_power>().ToTable("hero_power")
+                .HasOne(e => e.Superhero)
+                .WithMany(e => e.powers)
+                .HasForeignKey(e => e.hero_id);
         modelBuilder.Entity<Allignment>().ToTable("allignment");
         modelBuilder.Entity<Attribute_db>().ToTable("attribute");
         modelBuilder.Entity<Superpower>().ToTable("superpower");

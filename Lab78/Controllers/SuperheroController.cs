@@ -121,8 +121,8 @@ namespace Lab78.Controllers
             }
 
             _context.Superheroes.Remove(superhero);
-            var attr = await _context.HeroAttributes.FindAsync(id);
-            Console.WriteLine(attr);
+            // var attr = await _context.HeroAttributes.First
+            // Console.WriteLine(attr);
             await _context.SaveChangesAsync();
 
             return NoContent();
