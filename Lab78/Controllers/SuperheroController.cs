@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Lab78.Data;
 using Lab78.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Lab78.Controllers
 {
@@ -27,6 +28,7 @@ namespace Lab78.Controllers
         }
         
         // GET: api/Superhero
+        [Authorize]
         [HttpGet, Route("Get")]
         public async Task<ActionResult<IEnumerable<Superhero>>> GetSuperheroes()
         {
@@ -35,6 +37,7 @@ namespace Lab78.Controllers
 
         // POST: api/Superhero
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize(Roles = "admin")]
         [HttpPost, Route("Post")]
         public async Task<ActionResult<Superhero>> PostSuperhero(Superhero superhero)
         {
@@ -60,6 +63,7 @@ namespace Lab78.Controllers
 
         // PUT: api/Superhero
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize(Roles = "admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutSuperhero(int id, Superhero superhero)
         {
@@ -106,6 +110,7 @@ namespace Lab78.Controllers
         }
 
         // DELETE: api/Superhero/5
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSuperhero(int? id)
         {

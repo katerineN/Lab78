@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Lab78.Data;
 using Lab78.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Lab78.Controllers
 {
@@ -52,6 +53,7 @@ namespace Lab78.Controllers
 
         // PUT: api/Gender/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize(Roles = "admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutGender(int? id, Gender gender)
         {
@@ -83,6 +85,7 @@ namespace Lab78.Controllers
 
         // POST: api/Gender
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<ActionResult<Gender>> PostGender(Gender gender)
         {
